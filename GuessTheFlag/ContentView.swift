@@ -22,19 +22,23 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            Color.gray
+            LinearGradient(colors: [.brown, .black], startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
 
             VStack {
                 Text("Tap the flag of")
                     .foregroundStyle(.white)
+                    .font(.subheadline.weight(.heavy))
                 Text(countries[correctAnswer])
                     .foregroundStyle(.white)
+                    .font(.largeTitle.weight(.semibold))
                 ForEach(0..<3) { number in
                     Button {
                         flagTapped(number)
                     } label: {
                         Image(countries[number])
+                        .clipShape(.rect(cornerRadius: 8.0))
+                        .shadow(radius: 5)
                     }
                 }
             }
