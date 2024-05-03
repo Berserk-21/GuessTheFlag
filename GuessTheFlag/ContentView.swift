@@ -10,24 +10,55 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
        
-        ZStack {
-//            LinearGradient(stops: [
-//                Gradient.Stop(color: .white, location: 0.40),
-//                Gradient.Stop(color: .black, location: 0.60)
-//            ], startPoint: .top, endPoint: .bottom)
+        VStack {
+            Button("bordered") {
+                
+            }
+            .buttonStyle(.bordered)
+            .tint(.primary)
             
-//            RadialGradient(colors: [.blue, .black], center: .center, startRadius: 20.0, endRadius: 200.0)
+            Button("borderedProminent") {
+                
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.yellow)
             
-//            AngularGradient(colors: [.red, .yellow, .green, .blue, .purple, .red], center: .center)
+            Button("plain") {
+                
+            }
+            .buttonStyle(.plain)
+            .tint(.secondary)
             
-            Text("My beautiful red frame")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .foregroundStyle(.white)
-                .padding(50)
-                .background(.red.gradient)
+            Button("borderless") {
+                
+            }
+            .buttonStyle(.borderless)
+            .tint(.mint)
+            
+            Button {
+                print("did tap")
+            } label: {
+                Text("Tap me!")
+                    .padding()
+                    .foregroundStyle(.white)
+                    .background(.red)
+                    .clipShape(.buttonBorder)
+            }
+            
+            Button {
+                print("did tap edit")
+            } label: {
+                Image(systemName: "pencil")
+                    .tint(.white)
+            }
+            .frame(width: 50.0, height: 50.0)
+            .background(Color.gray)
+            .clipShape(.buttonBorder)
         }
-        .ignoresSafeArea()
-
+    }
+    
+    func executeDelete() {
+        print("Delete now !")
     }
 }
 
