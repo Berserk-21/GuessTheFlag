@@ -11,12 +11,20 @@ struct ContentView: View {
     var body: some View {
        
         ZStack {
-            Color.red
-                .frame(minWidth: 200, maxWidth: .infinity, maxHeight: .infinity)
+//            LinearGradient(stops: [
+//                Gradient.Stop(color: .white, location: 0.40),
+//                Gradient.Stop(color: .black, location: 0.60)
+//            ], startPoint: .top, endPoint: .bottom)
+            
+//            RadialGradient(colors: [.blue, .black], center: .center, startRadius: 20.0, endRadius: 200.0)
+            
+//            AngularGradient(colors: [.red, .yellow, .green, .blue, .purple, .red], center: .center)
+            
             Text("My beautiful red frame")
-                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .foregroundStyle(.white)
                 .padding(50)
-                .background(.ultraThinMaterial)
+                .background(.red.gradient)
         }
         .ignoresSafeArea()
 
