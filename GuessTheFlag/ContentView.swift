@@ -48,9 +48,7 @@ struct ContentView: View {
                         Button {
                             flagTapped(number)
                         } label: {
-                            Image(countries[number])
-                            .clipShape(.rect(cornerRadius: 8.0))
-                            .shadow(radius: 5)
+                            FlagImage(countryName: countries[number])
                         }
                     }
                 }
@@ -113,6 +111,17 @@ struct ContentView: View {
         currentScore = 0
         questionsLeft = totalQuestionsNb
         askQuestion()
+    }
+}
+
+struct FlagImage: View {
+    
+    let countryName: String
+    
+    var body: some View {
+        Image(countryName)
+        .clipShape(.rect(cornerRadius: 8.0))
+        .shadow(radius: 5)
     }
 }
 
