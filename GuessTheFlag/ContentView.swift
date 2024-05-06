@@ -15,8 +15,11 @@ struct ContentView: View {
     @State private var correctAnswer = Int.random(in: 0...2)
     
     @State private var showingScore = false
+    @State private var showingEndResult = false
     @State private var scoreTitle = ""
     @State private var currentScore = 0
+    private var totalQuestionsNb = 8
+    @State private var questionsLeft = 8
     
     // MARK: - UI
 
@@ -61,6 +64,11 @@ struct ContentView: View {
                 } message: {
                     Text("Your score is \(currentScore)")
                 }
+                .alert("Final result", isPresented: $showingEndResult) {
+                    Button("Restart", action: restart)
+                } message: {
+                    Text("Your final score is \(currentScore) !")
+                }
                 
                 Text("Score: \(currentScore)")
                     .foregroundStyle(.white)
@@ -69,27 +77,42 @@ struct ContentView: View {
                 Spacer()
                 Spacer()
             }
-            
         }
     }
     
     // MARK: - Core Methods
     
-    func flagTapped(_ number: Int) {
+    private func flagTapped(_ number: Int) {
         if number == correctAnswer {
             scoreTitle = "Correct"
             currentScore += 1
         } else {
-            scoreTitle = "Wrong"
+            scoreTitle = "Wrong, that's the flag of \(countries[number])"
             currentScore -= 1
         }
         
-        showingScore = true
+        // Score threshold: 0
+        currentScore = max(currentScore, 0)
+        
+        questionsLeft -= 1
+        
+        if questionsLeft > 0 {
+            showingScore = true
+        } else {
+            showingEndResult = true
+        }
     }
     
-    func askQuestion() {
+    private func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+    }
+    
+    private func restart() {
+        
+        currentScore = 0
+        questionsLeft = totalQuestionsNb
+        askQuestion()
     }
 }
 
