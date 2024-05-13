@@ -21,6 +21,9 @@ struct ContentView: View {
     private var totalQuestionsNb = 8
     @State private var questionsLeft = 8
     
+    @State private var tappedFlagIndex = -1
+    private var rotationDegreesValue = 360.0
+    
     // MARK: - UI
 
     var body: some View {
@@ -50,6 +53,10 @@ struct ContentView: View {
                         } label: {
                             FlagImage(countryName: countries[number])
                         }
+                        .rotation3DEffect(
+                            .degrees(number == tappedFlagIndex ? rotationDegreesValue : 0.0),
+                                                  axis: (x: 0.0, y: 1.0, z: 0.0)
+                        )
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -81,6 +88,11 @@ struct ContentView: View {
     // MARK: - Core Methods
     
     private func flagTapped(_ number: Int) {
+        
+        withAnimation {
+            tappedFlagIndex = number
+        }
+        
         if number == correctAnswer {
             scoreTitle = "Correct"
             currentScore += 1
@@ -104,6 +116,7 @@ struct ContentView: View {
     private func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        tappedFlagIndex = -1
     }
     
     private func restart() {
